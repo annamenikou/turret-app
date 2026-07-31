@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Jura:wght@300..700&display=swap" rel="stylesheet">
+<title>EMERGENCY GUIDES</title>
+<style>
+:root {
+--navy: #14263d;
+--line: #d9d9d9;
+--page-bg: #e8e8e8;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+font-family: "Jura", sans-serif;
+background: var(--page-bg);
+color: var(--navy);
+display: flex;
+justify-content: center;
+padding: 16px;
+}
+
+.app {
+width: 100%;
+max-width: 480px;
+background: #fff;
+border: 1px solid var(--line);
+display: flex;
+flex-direction: column;
+}
+
+/* Slim nav bars (top and bottom) */
+.bar {
+display: flex;
+border-bottom: 1px solid var(--line);
+}
+.bar.bottom {
+border-bottom: none;
+border-top: 1px solid var(--line);
+}
+.bar a {
+flex: 1;
+text-align: center;
+padding: 8px 6px;
+font-size: 13px;
+letter-spacing: 1px;
+text-decoration: none;
+color: var(--navy);
+border-right: 1px solid var(--line);
+}
+.bar a:last-child { border-right: none; }
+.bar a.active {
+background: var(--navy);
+color: #fff;
+}
+
+/* Middle content */
+.content { padding: 16px 18px 20px; }
+.page-title {
+text-align: center;
+font-weight: 800;
+font-size: 24px;
+letter-spacing: 2px;
+margin: 4px 0 18px;
+}
+
+/* Full-width menu button */
+.menu-btn {
+display: block;
+text-decoration: none;
+color: var(--navy);
+border: 1px solid var(--line);
+text-align: center;
+padding: 20px;
+font-size: 18px;
+font-weight: 700;
+letter-spacing: 1px;
+text-transform: uppercase;
+}
+
+/* "First Aid Order" heading strip */
+.order-label {
+background: var(--navy);
+color: #fff;
+text-align: center;
+padding: 10px;
+font-weight: 700;
+letter-spacing: 2px;
+margin: 18px 0 0;
+}
+
+/* 2-column clickable grid */
+.grid {
+display: grid;
+grid-template-columns: 1fr 1fr;   /* the "2" — two equal columns */
+}
+.cell {
+text-decoration: none;
+color: var(--navy);
+border: 1px solid var(--line);
+margin: -1px 0 0 -1px;            /* overlaps borders so lines don't double up */
+min-height: 90px;
+padding: 12px 8px;
+display: flex;
+flex-direction: column;
+align-items: center;
+justify-content: center;
+text-align: center;
+gap: 8px;
+}
+.cell .badge {
+background: var(--navy);
+color: #fff;
+width: 32px;
+height: 32px;
+display: flex;
+align-items: center;
+justify-content: center;
+font-size: 18px;
+font-weight: 800;
+}
+.cell .heading {
+font-size: 15px;
+font-weight: 700;
+letter-spacing: 1px;
+text-transform: uppercase;
+line-height: 1.2;
+}
+</style>
+</head>
+<body>
+<div class="app">
+
+<!-- SLIM TOP BAR -->
+<nav class="bar">
+<a href="/Pages/index.html">HOME</a>
+<a href="https://www.turretmedtraining.com "target="_blank" >WEBSITE</a>
+<a href="https://www.turretmedtraining.com/contact" target="_blank"><img src="/Images/phone.png" alt="" style="width:22px;height:22px;"> CONTACT</a>
+</nav>
+
+<!-- MIDDLE MENU -->
+<main class="content">
+<div class="title-row">
+<h1 class="page-title">EMERGENCY GUIDES</h1>
+
+<a href="/Pages/turret_training_pdf.pdf" target="_blank" class="pdf-btn">See Full PDF</a>
+</div>
+
+<a href="/Pages/scene.html" class="menu-btn">Scene &amp; Safety Management</a>
+
+<div class="order-label">FIRST AID ORDER: CABCDE</div>
+
+<div class="grid">
+<a href="/Pages/c-catastrophic.html" class="cell">
+<span class="badge">C</span>
+<span class="heading">Catastrophic Bleeding</span>
+</a>
+<a href="/Pages/airway.html" class="cell">
+<span class="badge">A</span>
+<span class="heading">Airway</span>
+</a>
+<a href="/Pages/breathing.html" class="cell">
+<span class="badge">B</span>
+<span class="heading">Breathing</span>
+</a>
+<a href="/Pages/circulation.html" class="cell">
+<span class="badge">C</span>
+<span class="heading">Circulation</span>
+</a>
+<a href="/Pages/disability.html" class="cell">
+<span class="badge">D</span>
+<span class="heading">Disability</span>
+</a>
+<a href="/Pages/exposure.html" class="cell">
+<span class="badge">E</span>
+<span class="heading">Exposure &amp; Evacuation</span>
+</a>
+</div>
+</main>
+
+<!-- SLIM BOTTOM BAR -->
+<nav class="bar bottom">
+<a href="/Pages/emergency.html" class="active">EMERGENCY</a>
+<a href="/Pages/d13resources.html">RESOURCES</a>
+<a href="/Pages/aboutus.html">ABOUT</a>
+</nav>
+
+</div>
+</body>
+</html>
