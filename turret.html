@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<!-- Tells the browser to use modern HTML rules. Always the first line. -->
+
+<html lang="en">
+<!-- The root container for the whole page. lang="en" says it's in English. -->
+
+
+<head>
+<!-- Opens the HEAD: settings for the browser, none of it shown on the page. -->
+
+  <meta charset="utf-8">
+  <!-- Sets the character set so symbols and accents display correctly. -->
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Makes the page size itself to the phone screen instead of zooming out. -->
+
+  <title>Turret Training</title>
+  <!-- The text shown on the browser TAB (not on the page itself). -->
+
+  <style>
+  /* <!-- Opens the CSS block. Everything here controls how things LOOK. --> */
+
+    * {
+    /* The * selects EVERY element on the page at once. */
+
+      box-sizing: border-box;
+      /* Makes an element's width include its padding and border (easier maths). */
+
+      margin: 0;
+      /* Removes the default space browsers add around elements. */
+
+      padding: 0;
+      /* Removes the default space inside elements. */
+    }
+    /* Ends the rule for all elements. */
+
+    body {
+    /* Starts styling the <body> (the whole visible page). */
+
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      /* Sets the text font, trying each one until the device has a match. */
+
+      background: #e7e5e4;
+      /* Colours the page background light grey (#e7e5e4 is a hex colour code). */
+
+      display: flex;
+      /* Turns body into a "flex" container so we can position its child. */
+
+      justify-content: center;
+      /* Centres that child horizontally (so the app sits in the middle). */
+    }
+    /* Ends the body rule. */
+
+    .app {
+    /* Styles any element with class="app" — our phone-shaped frame. */
+
+      width: 100%;
+      /* Take up the full width available... */
+
+      max-width: 430px;
+      /* ...but never grow wider than 430px (roughly a phone's width). */
+
+      min-height: 100vh;
+      /* Be at least as tall as the full screen (vh = viewport height). */
+
+      background: #fff;
+      /* White background for the app itself. */
+
+      display: flex;
+      /* Make .app a flex container for its children (header, main, nav). */
+
+      flex-direction: column;
+      /* Stack those children top-to-bottom instead of side-by-side. */
+
+      padding: 14px;
+      /* Add 14px of space inside the frame, around everything. */
+
+      gap: 22px;
+      /* Put 22px of space between the header, main, and nav. */
+    }
+    /* Ends the .app rule. */
+
+    .box {
+    /* Shared style for every wireframe box on the page. */
+
+      border: 1px solid #1c1917;
+      /* Draw a 1px solid near-black outline around the box. */
+
+      display: grid;
+      /* Use grid layout inside the box (a simple way to centre content). */
+
+      place-items: center;
+      /* Centre the box's text both horizontally and vertically. */
+
+      text-align: center;
+      /* Centre the text if it wraps onto more than one line. */
+    }
+    /* Ends the .box rule. */
+
+    header {
+    /* Styles the <header> — the top row of the app. */
+
+      display: flex;
+      /* Lay its three boxes out in a row. */
+
+      gap: 12px;
+      /* Put 12px of space between those boxes. */
+
+      align-items: stretch;
+      /* Make all three boxes the same height. */
+    }
+    /* Ends the header rule. */
+
+    .header-box {
+    /* Styles each individual box inside the header. */
+
+      flex: 1;
+      /* Share the row width equally with the other flex boxes. */
+
+      padding: 22px 8px;
+      /* 22px space top/bottom, 8px left/right, inside the box. */
+    }
+    /* Ends the .header-box rule. */
+
+    .header-box.wide {
+    /* Applies only to a header box that ALSO has class "wide". */
+
+      flex: 2;
+      /* Take twice the share of width (the centre title is wider). */
+
+      border: none;
+      /* Remove the outline, so the title sits free like in the mockup. */
+    }
+    /* Ends the .header-box.wide rule. */
+
+    main {
+    /* Styles the <main> — the middle section. */
+
+      flex: 1;
+      /* Grow to fill the leftover vertical space between header and nav. */
+
+      display: flex;
+      /* Make main a flex container for its two big boxes. */
+
+      flex-direction: column;
+      /* Stack those two boxes vertically. */
+
+      gap: 22px;
+      /* 22px of space between the two big boxes. */
+    }
+    /* Ends the main rule. */
+
+    .main-box {
+    /* Styles the two large boxes in the middle. */
+
+      flex: 1;
+      /* Split the available height evenly between the two boxes. */
+
+      min-height: 260px;
+      /* Never shrink shorter than 260px, so they stay large. */
+
+      font-size: 18px;
+      /* Make their label text a bit bigger. */
+    }
+    /* Ends the .main-box rule. */
+
+    nav {
+    /* Styles the <nav> — the bottom bar. */
+
+      display: flex;
+      /* Lay its four boxes out in a row. */
+
+      gap: 12px;
+      /* 12px of space between the four boxes. */
+    }
+    /* Ends the nav rule. */
+
+    .nav-box {
+    /* Styles each of the four bottom boxes. */
+
+      flex: 1;
+      /* Share the bottom row width equally. */
+
+      padding: 26px 6px;
+      /* 26px space top/bottom, 6px left/right, inside each. */
+
+      font-size: 14px;
+      /* Slightly smaller text for the bottom labels. */
+    }
+    /* Ends the .nav-box rule. */
+
+  </style>
+  <!-- Closes the CSS block. -->
+
+</head>
+<body>
+<!-- Opens the BODY: everything from here down is visible on the page. -->
+
+  <div class="app">
+  <!-- The phone-shaped frame that holds the whole app. -->
+
+    <header>
+    <!-- The top row of the app. -->
+
+      <div class="box header-box">LOGO</div>
+      <!-- Top-left box, showing the word LOGO. -->
+
+      <div class="header-box wide">TURRET TRAINING</div>
+      <!-- Centre title box (wide, no border), showing TURRET TRAINING. -->
+
+      <div class="box header-box">CONTACT</div>
+      <!-- Top-right box, showing CONTACT. -->
+
+    </header>
+    <!-- Closes the header row. -->
+
+    <main>
+    <!-- The middle section with the two big boxes. -->
+
+      <div class="box main-box">EMERGENCY GUIDES</div>
+      <!-- First large box, labelled EMERGENCY GUIDES. -->
+
+      <div class="box main-box">D13 TRAINING COURSE</div>
+      <!-- Second large box, labelled D13 TRAINING COURSE. -->
+
+    </main>
+    <!-- Closes the main section. -->
+
+    <nav>
+    <!-- The bottom bar with the four navigation boxes. -->
+
+      <div class="box nav-box">HOME</div>
+      <!-- Bottom box 1: HOME. -->
+
+      <div class="box nav-box">EMERGENCY GUIDES</div>
+      <!-- Bottom box 2: EMERGENCY GUIDES. -->
+
+      <div class="box nav-box">D13</div>
+      <!-- Bottom box 3: D13. -->
+
+      <div class="box nav-box">HELP</div>
+      <!-- Bottom box 4: HELP. -->
+
+    </nav>
+    <!-- Closes the bottom bar. -->
+
+  </div>
+  <!-- Closes the app frame. -->
+
+</body>
+</html>
+<!-- Closes the whole document. -->
