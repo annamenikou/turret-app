@@ -1,195 +1,260 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en-GB">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Jura:wght@300..700&display=swap" rel="stylesheet">
-<title>EMERGENCY GUIDES</title>
-<style>
-:root {
---navy: #14263d;
---line: #d9d9d9;
---page-bg: #e8e8e8;
-}
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#151a21">
+  <title>Emergency Guides</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Jura:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    /* ---- design tokens ---- */
+    :root{
+      --bg:#f5f6f8;          /* page background */
+      --surface:#ffffff;     /* card / panel background */
+      --navy:#14263d;         /* primary text */
+      --muted:#5b6672;       /* secondary text */
+      --line:#e4e7ec;        /* borders and dividers */
+      --accent:#151a21;      /* per-page accent colour (set inline) */
+      --radius:14px;         /* shared corner rounding */
+    }
 
-* { box-sizing: border-box; margin: 0; padding: 0; }
+    /* ---- base ---- */
+    *{ box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
+    html{ -webkit-text-size-adjust:100%; }               /* stop iOS auto-zoom on text */
+    body{
+      margin:0;
+      font-family:'Jura', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+      background:var(--bg);
+      color:var(--navy);
+      font-size:17px;                                    /* bigger base for phone use */
+      line-height:1.55;
+    }
+    a{ color:inherit; text-decoration:none; }            /* links inherit colour, no underline */
+    a.pdf-link, a.pdf-link:visited{ color:#175cd3; text-decoration:underline; }
+    .wrap{ max-width:640px; margin:0 auto; padding:0 16px 48px; }  /* centre + phone padding */
 
-body {
-font-family: "Jura", sans-serif;
-background: var(--page-bg);
-color: var(--navy);
-display: flex;
-justify-content: center;
-padding: 16px;
-}
+    /* ---- landing top bar ---- */
+    .topbar{
+      background:var(--navy); color:#fff;
+      padding:14px 0;
+    }
+    .topbar-inner{
+      max-width:640px; margin:0 auto; padding:0 16px;
+      display:flex; align-items:center; justify-content:space-between;
+      gap:10px; text-align:center;
+    }
+    .topbar .brand-logo{ height:28px; width:auto; flex:none; }
+    .topbar .brand{ flex:1; font-weight:700; letter-spacing:3px; font-size:15px; }
+    .topbar .brand em{ font-style:normal; opacity:.55; }
 
-.app {
-width: 100%;
-max-width: 480px;
-background: #fff;
-border: 1px solid var(--line);
-display: flex;
-flex-direction: column;
-}
+    /* ---- landing hero ---- */
+    .hero{ padding:22px 0 4px; text-align:center; }
+    .hero h1{ margin:0; font-size:29px; font-weight:700; letter-spacing:1px; }
+    .hero p{ margin:8px 0 0; color:var(--muted); font-size:16px; }
 
-/* Slim nav bars (top and bottom) */
-.bar {
-display: flex;
-border-bottom: 1px solid var(--line);
-}
-.bar.bottom {
-border-bottom: none;
-border-top: 1px solid var(--line);
-}
-.bar a {
-flex: 1;
-text-align: center;
-padding: 8px 6px;
-font-size: 13px;
-letter-spacing: 1px;
-text-decoration: none;
-color: var(--navy);
-border-right: 1px solid var(--line);
-}
-.bar a:last-child { border-right: none; }
-.bar a.active {
-background: var(--navy);
-color: #fff;
-}
+    /* ---- the C·A·B·C·D·E spine (on every page) ---- */
+    .spine{ display:flex; gap:7px; margin:18px 0 4px; }
+    .spine a{
+      flex:1; text-align:center; padding:12px 0; border-radius:12px;
+      font-weight:700; font-size:20px;
+      border:2px solid var(--c); color:var(--c); background:var(--surface);
+    }
+    .spine a.active{ background:var(--c); color:#fff; }   /* the step you're on */
 
-/* Middle content */
-.content { padding: 16px 18px 20px; }
-.page-title {
-text-align: center;
-font-weight: 800;
-font-size: 24px;
-letter-spacing: 2px;
-margin: 4px 0 18px;
-}
+    /* ---- landing step cards ---- */
+    .card{
+      display:flex; align-items:center; gap:14px;
+      background:var(--surface); border:1px solid var(--line);
+      border-left:6px solid var(--accent);               /* colour tab down the side */
+      border-radius:var(--radius); padding:16px; margin:11px 0;
+    }
+    .badge{
+      flex:none; width:46px; height:46px; border-radius:11px;
+      background:var(--accent); color:#fff;
+      display:flex; align-items:center; justify-content:center;
+      font-size:24px; font-weight:700;
+    }
+    .card-body{ flex:1; min-width:0; }
+    .card-title{ display:block; font-size:19px; font-weight:700; }
+    .card-sum{ display:block; color:var(--muted); font-size:15px; margin-top:2px; }
+    .chev{ color:var(--muted); font-size:26px; font-weight:700; }
 
-/* Full-width menu button */
-.menu-btn {
-display: block;
-text-decoration: none;
-color: var(--navy);
-border: 1px solid var(--line);
-text-align: center;
-padding: 20px;
-font-size: 18px;
-font-weight: 700;
-letter-spacing: 1px;
-text-transform: uppercase;
-}
+    /* ---- scene & safety card: badge/title row + 3-column detail ---- */
+    .card.scene-card{ display:block; padding:12px 14px; }
+    .card.scene-card .card-top{ display:flex; align-items:center; gap:10px; }
+    .card.scene-card .card-title{ text-align:center; font-size:17px; }
+    .scene-cols{
+      display:flex; gap:8px; margin-top:8px; padding-top:8px;
+      border-top:1px solid var(--line);
+    }
+    .scene-col{ flex:1; min-width:0; }
+    .scene-col h3{
+      margin:0 0 3px; font-size:12px; letter-spacing:.5px;
+      text-transform:uppercase; color:var(--muted); font-weight:700;
+    }
+    .scene-col ul{ margin:0; padding-left:14px; }
+    .scene-col li{ margin:1px 0; font-size:12px; line-height:1.35; }
 
-/* "First Aid Order" heading strip */
-.order-label {
-background: var(--navy);
-color: #fff;
-text-align: center;
-padding: 10px;
-font-weight: 700;
-letter-spacing: 2px;
-margin: 18px 0 0;
-}
+    /* ---- letter-page coloured header ---- */
+    .phead{ background:var(--accent); color:#fff; padding:18px 16px 22px; }
+    .phead .back{
+      display:inline-block; font-size:14px; font-weight:600;
+      opacity:.9; margin-bottom:14px; letter-spacing:.5px;
+    }
+    .phead-main{ display:flex; align-items:center; gap:14px; }
+    .phead-badge{
+      flex:none; width:60px; height:60px; border-radius:14px;
+      background:rgba(255,255,255,.18);
+      display:flex; align-items:center; justify-content:center;
+      font-size:34px; font-weight:700;
+    }
+    .phead h1{ margin:0; font-size:26px; font-weight:700; letter-spacing:1px; }
+    .phead .lead{ margin:5px 0 0; font-size:15px; opacity:.92; }
 
-/* 2-column clickable grid */
-.grid {
-display: grid;
-grid-template-columns: 1fr 1fr;   /* the "2" — two equal columns */
-}
-.cell {
-text-decoration: none;
-color: var(--navy);
-border: 1px solid var(--line);
-margin: -1px 0 0 -1px;            /* overlaps borders so lines don't double up */
-min-height: 90px;
-padding: 12px 8px;
-display: flex;
-flex-direction: column;
-align-items: center;
-justify-content: center;
-text-align: center;
-gap: 8px;
-}
-.cell .badge {
-background: var(--navy);
-color: #fff;
-width: 32px;
-height: 32px;
-display: flex;
-align-items: center;
-justify-content: center;
-font-size: 18px;
-font-weight: 800;
-}
-.cell .heading {
-font-size: 15px;
-font-weight: 700;
-letter-spacing: 1px;
-text-transform: uppercase;
-line-height: 1.2;
-}
-</style>
+    /* ---- content blocks (letter pages) ---- */
+    .block{
+      background:var(--surface); border:1px solid var(--line);
+      border-radius:var(--radius); padding:14px 18px; margin:12px 0;
+    }
+    .block h2{
+      margin:0 0 8px; font-size:19px;
+      padding-bottom:8px; border-bottom:2px solid var(--accent);
+      display:inline-block;                              /* underline hugs the text */
+    }
+    .block .note{ color:var(--muted); margin:0; font-size:16px; }
+    .block ul{ margin:8px 0 0; padding-left:20px; }
+    .block li{ margin:7px 0; font-size:17px; }
+
+    /* ---- full-guide button ---- */
+    .fullbtn{
+      display:block; text-align:center;
+      background:var(--accent); color:#fff;
+      font-weight:700; letter-spacing:.5px;
+      padding:15px; border-radius:12px; margin:16px 0;
+    }
+    .fullbtn.ghost{ background:var(--surface); color:var(--accent); border:2px solid var(--accent); }
+
+    /* ---- accessibility: keyboard focus + reduced motion ---- */
+    a:focus-visible{ outline:3px solid #111; outline-offset:2px; }
+    @media (prefers-reduced-motion:reduce){ *{ transition:none !important; } }
+  </style>
 </head>
 <body>
-<div class="app">
 
-<!-- SLIM TOP BAR -->
-<nav class="bar">
-<a href="/Pages/index.html">HOME</a>
-<a href="https://www.turretmedtraining.com "target="_blank" >WEBSITE</a>
-<a href="https://www.turretmedtraining.com/contact" target="_blank"><img src="/Images/phone.png" alt="" style="width:22px;height:22px;"> CONTACT</a>
-</nav>
+  <!-- Brand bar -->
+  <div class="topbar">
+    <div class="topbar-inner">
+      <a href="/Pages/index.html" aria-label="Home"><img src="/Images/turret.png" alt="" class="brand-logo"></a>
+      <span class="brand">TURRET <em>&middot; EMERGENCY GUIDES</em></span>
+      <a href="https://www.turretmedtraining.com/contact" target="_blank" rel="noopener" aria-label="Contact"><img src="/Images/phone.png" alt="" class="brand-logo"></a>
+    </div>
+  </div>
 
-<!-- MIDDLE MENU -->
-<main class="content">
-<div class="title-row">
-<h1 class="page-title">EMERGENCY GUIDES</h1>
+  <div class="wrap">
 
-<a href="/Pages/turret_training_pdf.pdf" target="_blank" class="pdf-btn">See Full PDF</a>
-</div>
+    <!-- Title -->
+    <div class="hero">
+      <h1>ORDER OF FIRST AID: C-ABCDE</h1>
+      <p>Tap any step to open it, or view full pdf <a href="/full_emergency_guide.pdf" target="_blank" rel="noopener" class="pdf-link">here</a>.</p>
+    </div>
 
-<a href="/Pages/scene.html" class="menu-btn">Scene &amp; Safety Management</a>
+        <a class="card scene-card" style="--accent:#475467" href="/Pages/guides/scene_safety.html">
+      <span class="card-top">
+        <span class="card-body">
+          <span class="card-title">Scene &amp; Safety Management: Before you start</span>
+        </span>
+        <span class="chev">&rsaquo;</span>
+      </span>
+      <span class="scene-cols">
+        <span class="scene-col">
+          <h3>Upon arrival</h3>
+          <ul>
+            <li>Note the time of arrival</li>
+            <li>Tell control</li>
+            <li>Call for help or backup early</li>
+          </ul>
+        </span>
+        <span class="scene-col">
+          <h3>Safety 1-2-3</h3>
+          <ul>
+            <li>You</li>
+            <li>Environment</li>
+            <li>Patient</li>
+          </ul>
+        </span>
+        <span class="scene-col">
+          <h3>Read the scene</h3>
+          <ul>
+            <li>Consider the MOI</li>
+            <li>&asymp;90% of the diagnosis</li>
+          </ul>
+        </span>
+      </span>
+    </a>
 
-<div class="order-label">FIRST AID ORDER: CABCDE</div>
+    <!-- The whole sequence at a glance (also tappable) -->
+    <nav class="spine">
+      <a style="--c:#d92d20" href="/Pages/catastrophic_bleeding.html">C</a>
+      <a style="--c:#b45309" href="/Pages/airway.html">A</a>
+      <a style="--c:#175cd3" href="/Pages/breathing.html">B</a>
+      <a style="--c:#9f1239" href="/Pages/circulation.html">C</a>
+      <a style="--c:#6941c6" href="/Pages/disability.html">D</a>
+      <a style="--c:#067647" href="/Pages/exposure.html">E</a>
+    </nav>
 
-<div class="grid">
-<a href="/Pages/c-catastrophic.html" class="cell">
-<span class="badge">C</span>
-<span class="heading">Catastrophic Bleeding</span>
-</a>
-<a href="/Pages/airway.html" class="cell">
-<span class="badge">A</span>
-<span class="heading">Airway</span>
-</a>
-<a href="/Pages/breathing.html" class="cell">
-<span class="badge">B</span>
-<span class="heading">Breathing</span>
-</a>
-<a href="/Pages/circulation.html" class="cell">
-<span class="badge">C</span>
-<span class="heading">Circulation</span>
-</a>
-<a href="/Pages/disability.html" class="cell">
-<span class="badge">D</span>
-<span class="heading">Disability</span>
-</a>
-<a href="/Pages/exposure.html" class="cell">
-<span class="badge">E</span>
-<span class="heading">Exposure &amp; Evacuation</span>
-</a>
-</div>
-</main>
+    <!-- One card per step -->
 
-<!-- SLIM BOTTOM BAR -->
-<nav class="bar bottom">
-<a href="/Pages/emergency.html" class="active">EMERGENCY</a>
-<a href="/Pages/d13resources.html">RESOURCES</a>
-<a href="/Pages/aboutus.html">ABOUT</a>
-</nav>
+    <a class="card" style="--accent:#d92d20" href="/Pages/catastrophic_bleeding.html">
+      <span class="badge">C</span>
+      <span class="card-body">
+        <span class="card-title">Catastrophic Bleeding</span>
+        <span class="card-sum">Stop massive bleeding, stabilise the head &amp; neck, check consciousness.</span>
+      </span>
+      <span class="chev">&rsaquo;</span>
+    </a>
+    <a class="card" style="--accent:#b45309" href="/Pages/airway.html">
+      <span class="badge">A</span>
+      <span class="card-body">
+        <span class="card-title">Airway</span>
+        <span class="card-sum">Is the airway noisy or silent? Clear it and create one.</span>
+      </span>
+      <span class="chev">&rsaquo;</span>
+    </a>
+    <a class="card" style="--accent:#175cd3" href="/Pages/breathing.html">
+      <span class="badge">B</span>
+      <span class="card-body">
+        <span class="card-title">Breathing</span>
+        <span class="card-sum">Expose the chest, assess rate &amp; volume, treat wounds.</span>
+      </span>
+      <span class="chev">&rsaquo;</span>
+    </a>
+    <a class="card" style="--accent:#9f1239" href="/Pages/circulation.html">
+      <span class="badge">C</span>
+      <span class="card-body">
+        <span class="card-title">Circulation</span>
+        <span class="card-sum">Locate the blood, control it, check the pulse.</span>
+      </span>
+      <span class="chev">&rsaquo;</span>
+    </a>
+    <a class="card" style="--accent:#6941c6" href="/Pages/disability.html">
+      <span class="badge">D</span>
+      <span class="card-body">
+        <span class="card-title">Disability</span>
+        <span class="card-sum">Reassess every 5 min: movement, AVPU, pupils, pain.</span>
+      </span>
+      <span class="chev">&rsaquo;</span>
+    </a>
+    <a class="card" style="--accent:#067647" href="/Pages/exposure.html">
+      <span class="badge">E</span>
+      <span class="card-body">
+        <span class="card-title">Exposure / Evacuation</span>
+        <span class="card-sum">Keep warm, pack, wrap, evacuate. Avoid hypothermia.</span>
+      </span>
+      <span class="chev">&rsaquo;</span>
+    </a>
 
-</div>
+  </div>
 </body>
 </html>

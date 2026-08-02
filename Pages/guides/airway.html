@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#b45309">
+  <title>A — Airway · Emergency Guides</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Jura:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    /* ---- design tokens ---- */
+    :root{
+      --bg:#f5f6f8;          /* page background */
+      --surface:#ffffff;     /* card / panel background */
+      --ink:#151a21;         /* primary text */
+      --muted:#5b6672;       /* secondary text */
+      --line:#e4e7ec;        /* borders and dividers */
+      --accent:#151a21;      /* per-page accent colour (set inline) */
+      --radius:14px;         /* shared corner rounding */
+    }
+
+    /* ---- base ---- */
+    *{ box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
+    html{ -webkit-text-size-adjust:100%; }               /* stop iOS auto-zoom on text */
+    body{
+      margin:0;
+      font-family:'Jura', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+      background:var(--bg);
+      color:var(--ink);
+      font-size:17px;                                    /* bigger base for phone use */
+      line-height:1.55;
+    }
+    a{ color:inherit; text-decoration:none; }            /* links inherit colour, no underline */
+    .wrap{ max-width:640px; margin:0 auto; padding:0 16px 48px; }  /* centre + phone padding */
+
+    /* ---- landing top bar ---- */
+    .topbar{
+      background:var(--ink); color:#fff;
+      padding:14px 16px; display:flex; align-items:center;
+    }
+    .topbar .brand{ font-weight:700; letter-spacing:3px; font-size:15px; }
+    .topbar .brand em{ font-style:normal; opacity:.55; }
+
+    /* ---- landing hero ---- */
+    .hero{ padding:22px 0 4px; }
+    .hero h1{ margin:0; font-size:29px; font-weight:700; letter-spacing:1px; }
+    .hero p{ margin:8px 0 0; color:var(--muted); font-size:16px; }
+
+    /* ---- the C·A·B·C·D·E spine (on every page) ---- */
+    .spine{ display:flex; gap:7px; margin:18px 0 4px; }
+    .spine a{
+      flex:1; text-align:center; padding:12px 0; border-radius:12px;
+      font-weight:700; font-size:20px;
+      border:2px solid var(--c); color:var(--c); background:var(--surface);
+    }
+    .spine a.active{ background:var(--c); color:#fff; }   /* the step you're on */
+
+    /* ---- landing step cards ---- */
+    .card{
+      display:flex; align-items:center; gap:14px;
+      background:var(--surface); border:1px solid var(--line);
+      border-left:6px solid var(--accent);               /* colour tab down the side */
+      border-radius:var(--radius); padding:16px; margin:11px 0;
+    }
+    .badge{
+      flex:none; width:46px; height:46px; border-radius:11px;
+      background:var(--accent); color:#fff;
+      display:flex; align-items:center; justify-content:center;
+      font-size:24px; font-weight:700;
+    }
+    .card-body{ flex:1; min-width:0; }
+    .card-title{ display:block; font-size:19px; font-weight:700; }
+    .card-sum{ display:block; color:var(--muted); font-size:15px; margin-top:2px; }
+    .chev{ color:var(--muted); font-size:26px; font-weight:700; }
+
+    /* ---- scene & safety panel (landing only) ---- */
+    .panel{
+      background:var(--surface); border:1px solid var(--line);
+      border-radius:var(--radius); padding:16px 18px; margin-top:24px;
+    }
+    .panel h2{ margin:0; font-size:19px; }
+    .panel .sub{ color:var(--muted); font-size:14px; margin:2px 0 10px; }
+    .panel h3{
+      margin:16px 0 4px; font-size:13px; letter-spacing:.6px;
+      text-transform:uppercase; color:var(--muted);
+    }
+    .panel ul{ margin:0; padding-left:20px; }
+    .panel li{ margin:4px 0; }
+
+    /* ---- letter-page coloured header ---- */
+    .phead{ background:var(--accent); color:#fff; padding:18px 16px 22px; }
+    .phead .back{
+      display:inline-block; font-size:14px; font-weight:600;
+      opacity:.9; margin-bottom:14px; letter-spacing:.5px;
+    }
+    .phead-main{ display:flex; align-items:center; gap:14px; }
+    .phead-badge{
+      flex:none; width:60px; height:60px; border-radius:14px;
+      background:rgba(255,255,255,.18);
+      display:flex; align-items:center; justify-content:center;
+      font-size:34px; font-weight:700;
+    }
+    .phead h1{ margin:0; font-size:26px; font-weight:700; letter-spacing:1px; }
+    .phead .lead{ margin:5px 0 0; font-size:15px; opacity:.92; }
+
+    /* ---- content blocks (letter pages) ---- */
+    .block{
+      background:var(--surface); border:1px solid var(--line);
+      border-radius:var(--radius); padding:14px 18px; margin:12px 0;
+    }
+    .block h2{
+      margin:0 0 8px; font-size:19px;
+      padding-bottom:8px; border-bottom:2px solid var(--accent);
+      display:inline-block;                              /* underline hugs the text */
+    }
+    .block .note{ color:var(--muted); margin:0; font-size:16px; }
+    .block ul{ margin:8px 0 0; padding-left:20px; }
+    .block li{ margin:7px 0; font-size:17px; }
+
+    /* ---- full-guide button ---- */
+    .fullbtn{
+      display:block; text-align:center;
+      background:var(--accent); color:#fff;
+      font-weight:700; letter-spacing:.5px;
+      padding:15px; border-radius:12px; margin:16px 0;
+    }
+    .fullbtn.ghost{ background:var(--surface); color:var(--accent); border:2px solid var(--accent); }
+
+    /* ---- accessibility: keyboard focus + reduced motion ---- */
+    a:focus-visible{ outline:3px solid #111; outline-offset:2px; }
+    @media (prefers-reduced-motion:reduce){ *{ transition:none !important; } }
+  </style>
+</head>
+<body style="--accent:#b45309">
+
+  <!-- Coloured header: which step you're on -->
+  <header class="phead">
+    <a class="back" href="emergency.html">&lsaquo; Full C-ABCDE guide</a>
+    <div class="phead-main">
+      <span class="phead-badge">A</span>
+      <div>
+        <h1>Airway</h1>
+        <p class="lead">Is the airway noisy or silent?</p>
+      </div>
+    </div>
+  </header>
+
+  <div class="wrap">
+
+    <!-- Spine: current step highlighted; tap any letter to jump -->
+    <nav class="spine">
+      <a style="--c:#d92d20" href="guide-catastrophic.html">C</a>
+      <a class="active" style="--c:#b45309" href="guide-airway.html">A</a>
+      <a style="--c:#175cd3" href="guide-breathing.html">B</a>
+      <a style="--c:#9f1239" href="guide-circulation.html">C</a>
+      <a style="--c:#6941c6" href="guide-disability.html">D</a>
+      <a style="--c:#067647" href="guide-exposure.html">E</a>
+    </nav>
+
+    <!-- Button back to the whole overview -->
+    <a class="fullbtn" href="emergency.html">View the full C-ABCDE guide</a>
+
+    <!-- The detail for this step -->
+    <section class="block">
+      <h2>Noisy = partially obstructed</h2>
+      <ul>
+        <li>Bubbling &rarr; check for fluid</li>
+        <li>Snoring &rarr; tongue blockage</li>
+        <li>Check hard structures (jaw, cheekbones, teeth)</li>
+        <li>Check soft tissue (lips, tongue, larynx, nose — milk for signs of bleeding)</li>
+        <li>Open the mouth and clear foreign objects</li>
+        <li>For blood / vomit: postural drainage, then suction</li>
+      </ul>
+    </section>
+    <section class="block">
+      <h2>Silent = complete obstruction</h2>
+      <ul>
+        <li>Back blows</li>
+        <li>Chest thrusts</li>
+      </ul>
+    </section>
+    <section class="block">
+      <h2>Create an airway</h2>
+      <ul>
+        <li>Jaw thrust</li>
+        <li>Chin lift</li>
+      </ul>
+    </section>
+    <section class="block">
+      <h2>If struggling, consider</h2>
+      <ul>
+        <li>&times;2 NPA (6 Female / 7 Male)</li>
+        <li>OP tube</li>
+        <li>Keep going manually</li>
+      </ul>
+    </section>
+
+    <a class="fullbtn ghost" href="emergency.html">&lsaquo; Back to full guide</a>
+
+  </div>
+</body>
+</html>
