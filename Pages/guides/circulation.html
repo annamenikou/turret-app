@@ -80,17 +80,18 @@
       border-radius:var(--radius); padding:12px 14px; margin:14px 0;
     }
     .scene-banner summary{
-      display:flex; align-items:center; justify-content:center;
-      position:relative; list-style:none; cursor:pointer;
+      display:flex; align-items:center; gap:8px;
+      list-style:none; cursor:pointer;
     }
     .scene-banner summary::-webkit-details-marker{ display:none; }
     .scene-banner .banner-title{
+      flex:1; min-width:0; text-align:center; overflow:hidden; text-overflow:ellipsis;
       font-weight:700; white-space:nowrap;
       letter-spacing:clamp(.1px, .3vw, .4px); text-transform:uppercase; color:var(--muted);
       font-size:clamp(10.5px, 3.1vw, 14px);
     }
     .scene-banner .banner-toggle{
-      position:absolute; right:0; top:50%; transform:translateY(-50%);
+      flex:none;
       width:18px; height:18px; border:2px solid var(--muted); border-radius:4px;
       display:flex; align-items:center; justify-content:center;
       font-size:12px; font-weight:700; line-height:1; color:var(--muted);
@@ -111,10 +112,13 @@
     /* ---- letter-page coloured header ---- */
     .phead{ background:var(--accent); color:#fff; padding:18px 16px 22px; }
     .phead .back{
-      flex:none; font-size:14px; font-weight:600;
-      opacity:.9; letter-spacing:.5px; white-space:nowrap;
+      flex:none; font-weight:600; opacity:.9; letter-spacing:.5px;
     }
-    .phead .back .back-short{ display:none; }
+    .phead .back .back-full{ font-size:14px; white-space:nowrap; }
+    .phead .back .back-short{
+      display:none; font-size:11px; line-height:1.2;
+      text-align:center; white-space:normal;
+    }
     .phead-main{ display:flex; align-items:center; gap:10px; }
     .phead-title{ flex:1; min-width:0; overflow:hidden; text-align:left; }
     .phead-badge{
@@ -127,7 +131,7 @@
     .phead .lead{ margin:5px 0 0; font-size:15px; opacity:.92; }
     @media (max-width:420px){
       .phead .back .back-full{ display:none; }
-      .phead .back .back-short{ display:inline; }
+      .phead .back .back-short{ display:block; }
     }
 
     /* ---- content blocks (letter pages) ---- */
@@ -163,7 +167,7 @@
   <!-- Coloured header: which step you're on -->
   <header class="phead">
     <div class="phead-main">
-      <a class="back" href="/Pages/emergency.html"><span class="back-full">&lsaquo; Full C-ABCDE guide</span><span class="back-short">&lsaquo; Guide</span></a>
+      <a class="back" href="/Pages/emergency.html"><span class="back-full">&lsaquo; Full C-ABCDE guide</span><span class="back-short">&lsaquo; Full<br>Guide</span></a>
       <span class="phead-badge">C</span>
       <div class="phead-title">
         <h1>Circulation</h1>
