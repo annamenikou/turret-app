@@ -81,10 +81,27 @@
     .card-sum{ display:block; color:var(--muted); font-size:15px; margin-top:2px; }
     .chev{ color:var(--muted); font-size:26px; font-weight:700; }
 
-    /* ---- scene & safety card: badge/title row + 3-column detail ---- */
-    .card.scene-card{ display:block; padding:12px 14px; }
-    .card.scene-card .card-top{ display:flex; align-items:center; gap:10px; }
-    .card.scene-card .card-title{ text-align:center; font-size:17px; }
+    /* ---- scene & safety banner: static reminder, not a link (same on every page) ---- */
+    .scene-banner{
+      background:#eef1f4; border:1px solid var(--line);
+      border-radius:var(--radius); padding:12px 14px; margin:11px 0;
+    }
+    .scene-banner summary{
+      display:flex; align-items:center; justify-content:center;
+      position:relative; list-style:none; cursor:pointer;
+    }
+    .scene-banner summary::-webkit-details-marker{ display:none; }
+    .scene-banner .banner-title{
+      font-size:14px; font-weight:700;
+      letter-spacing:.4px; text-transform:uppercase; color:var(--muted);
+    }
+    .scene-banner .banner-toggle{
+      position:absolute; right:0; top:50%; transform:translateY(-50%);
+      width:18px; height:18px; border:2px solid var(--muted); border-radius:4px;
+      display:flex; align-items:center; justify-content:center;
+      font-size:12px; font-weight:700; line-height:1; color:var(--muted);
+    }
+    .scene-banner:not([open]) .banner-toggle::before{ content:"\2713"; }
     .scene-cols{
       display:flex; gap:8px; margin-top:8px; padding-top:8px;
       border-top:1px solid var(--line);
@@ -160,13 +177,11 @@
       <p>Tap any step to open it, or view full pdf <a href="/full_emergency_guide.pdf" target="_blank" rel="noopener" class="pdf-link">here</a>.</p>
     </div>
 
-        <a class="card scene-card" style="--accent:#475467" href="/Pages/guides/scene_safety.html">
-      <span class="card-top">
-        <span class="card-body">
-          <span class="card-title">Scene &amp; Safety Management: Before you start</span>
-        </span>
-        <span class="chev">&rsaquo;</span>
-      </span>
+        <details class="scene-banner" open>
+      <summary>
+        <span class="banner-title">Scene &amp; Safety Management: Before you start</span>
+        <span class="banner-toggle" aria-hidden="true"></span>
+      </summary>
       <span class="scene-cols">
         <span class="scene-col">
           <h3>Upon arrival</h3>
@@ -192,16 +207,16 @@
           </ul>
         </span>
       </span>
-    </a>
+    </details>
 
     <!-- The whole sequence at a glance (also tappable) -->
     <nav class="spine">
-      <a style="--c:#d92d20" href="/Pages/catastrophic_bleeding.html">C</a>
-      <a style="--c:#b45309" href="/Pages/airway.html">A</a>
-      <a style="--c:#175cd3" href="/Pages/breathing.html">B</a>
-      <a style="--c:#9f1239" href="/Pages/circulation.html">C</a>
-      <a style="--c:#6941c6" href="/Pages/disability.html">D</a>
-      <a style="--c:#067647" href="/Pages/exposure.html">E</a>
+      <a style="--c:#d92d20" href="/Pages/guides/catastrophic_bleeding.html">C</a>
+      <a style="--c:#b45309" href="/Pages/guides/airway.html">A</a>
+      <a style="--c:#175cd3" href="/Pages/guides/breathing.html">B</a>
+      <a style="--c:#9f1239" href="/Pages/guides/circulation.html">C</a>
+      <a style="--c:#6941c6" href="/Pages/guides/disability.html">D</a>
+      <a style="--c:#067647" href="/Pages/guides/exposure.html">E</a>
     </nav>
 
     <!-- One card per step -->

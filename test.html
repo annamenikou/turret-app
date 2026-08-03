@@ -1,32 +1,245 @@
 <!DOCTYPE html>
-<!-- Tells the browser to use modern HTML -->
-<html lang="eng">
-<!-- Start of the whole page -->
+<html lang="en-GB">
 <head>
-<!-- Settings section (nothing here shows on the page) -->
-  <meta charset="utf-8">
- <!-- meta is short for metadata and describe data about data, Makes letters and symbols display correctly -->
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <!-- Sets the view for responsive design on mobile-->
-  <title>Turret Training</title>
-  <!-- The name shown on the browser tab -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#151a21">
+  <title>Turret Training - Home</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Jura:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    /* ---- design tokens ---- */
+    :root{
+      --bg:#f5f6f8;          /* page background */
+      --surface:#ffffff;     /* card / panel background */
+      --navy:#14263d;         /* primary text */
+      --muted:#5b6672;       /* secondary text */
+      --line:#e4e7ec;        /* borders and dividers */
+      --accent:#151a21;      /* per-page accent colour (set inline) */
+      --radius:14px;         /* shared corner rounding */
+    }
 
-<style>
-  :root {
-    --navy: #14263d;
-    --line: #d9d9d9;
-    --page-bg: #e8e8e8;
-  }
+    /* ---- base ---- */
+    *{ box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
+    html{ -webkit-text-size-adjust:100%; }               /* stop iOS auto-zoom on text */
+    body{
+      margin:0;
+      font-family:'Jura', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+      background:var(--bg);
+      color:var(--navy);
+      font-size:17px;                                    /* bigger base for phone use */
+      line-height:1.55;
+    }
+    a{ color:inherit; text-decoration:none; }            /* links inherit colour, no underline */
+    .wrap{ max-width:640px; margin:0 auto; padding:0 16px 48px; }  /* centre + phone padding */
 
+    /* ---- landing top bar ---- */
+    .topbar{
+      background:var(--navy); color:#fff;
+      padding:14px 0;
+    }
+    .topbar-inner{
+      max-width:640px; margin:0 auto; padding:0 16px;
+      display:flex; align-items:center; justify-content:space-between;
+      gap:10px; text-align:center;
+    }
+    .topbar .brand-logo{ height:28px; width:auto; flex:none; }
+    .topbar .brand{ flex:1; font-weight:700; letter-spacing:3px; font-size:15px; }
+    .topbar .brand em{ font-style:normal; opacity:.55; }
+
+    /* ---- landing hero ---- */
+    .hero{ padding:22px 0 4px; text-align:center; }
+    .hero h1{ margin:0; font-size:29px; font-weight:700; letter-spacing:1px; }
+    .hero p{ margin:8px 0 0; color:var(--muted); font-size:16px; }
+
+    /* ---- the C·A·B·C·D·E spine (on every page) ---- */
+    .spine{ display:flex; gap:7px; margin:18px 0 4px; }
+    .spine a{
+      flex:1; text-align:center; padding:12px 0; border-radius:12px;
+      font-weight:700; font-size:20px;
+      border:2px solid var(--c); color:var(--c); background:var(--surface);
+    }
+    .spine a.active{ background:var(--c); color:#fff; }   /* the step you're on */
+
+    /* ---- landing step cards ---- */
+    .card{
+      display:flex; align-items:center; gap:14px;
+      background:var(--surface); border:1px solid var(--line);
+      border-left:6px solid var(--accent);               /* colour tab down the side */
+      border-radius:var(--radius); padding:16px; margin:11px 0;
+    }
+    .badge{
+      flex:none; width:46px; height:46px; border-radius:11px;
+      background:var(--accent); color:#fff;
+      display:flex; align-items:center; justify-content:center;
+      font-size:24px; font-weight:700;
+    }
+    .card-body{ flex:1; min-width:0; }
+    .card-title{ display:block; font-size:19px; font-weight:700; }
+    .card-sum{ display:block; color:var(--muted); font-size:15px; margin-top:2px; }
+    .chev{ color:var(--muted); font-size:26px; font-weight:700; }
+
+    /* ---- scene & safety panel (landing only) ---- */
+    .panel{
+      background:var(--surface); border:1px solid var(--line);
+      border-radius:var(--radius); padding:16px 18px; margin-top:24px;
+    }
+    .panel h2{ margin:0; font-size:19px; }
+    .panel .sub{ color:var(--muted); font-size:14px; margin:2px 0 10px; }
+    .panel h3{
+      margin:16px 0 4px; font-size:13px; letter-spacing:.6px;
+      text-transform:uppercase; color:var(--muted);
+    }
+    .panel ul{ margin:0; padding-left:20px; }
+    .panel li{ margin:4px 0; }
+
+    /* ---- letter-page coloured header ---- */
+    .phead{ background:var(--accent); color:#fff; padding:18px 16px 22px; }
+    .phead .back{
+      display:inline-block; font-size:14px; font-weight:600;
+      opacity:.9; margin-bottom:14px; letter-spacing:.5px;
+    }
+    .phead-main{ display:flex; align-items:center; gap:14px; }
+    .phead-badge{
+      flex:none; width:60px; height:60px; border-radius:14px;
+      background:rgba(255,255,255,.18);
+      display:flex; align-items:center; justify-content:center;
+      font-size:34px; font-weight:700;
+    }
+    .phead h1{ margin:0; font-size:26px; font-weight:700; letter-spacing:1px; }
+    .phead .lead{ margin:5px 0 0; font-size:15px; opacity:.92; }
+
+    /* ---- content blocks (letter pages) ---- */
+    .block{
+      background:var(--surface); border:1px solid var(--line);
+      border-radius:var(--radius); padding:14px 18px; margin:12px 0;
+    }
+    .block h2{
+      margin:0 0 8px; font-size:19px;
+      padding-bottom:8px; border-bottom:2px solid var(--accent);
+      display:inline-block;                              /* underline hugs the text */
+    }
+    .block .note{ color:var(--muted); margin:0; font-size:16px; }
+    .block ul{ margin:8px 0 0; padding-left:20px; }
+    .block li{ margin:7px 0; font-size:17px; }
+
+    /* ---- full-guide button ---- */
+    .fullbtn{
+      display:block; text-align:center;
+      background:var(--accent); color:#fff;
+      font-weight:700; letter-spacing:.5px;
+      padding:15px; border-radius:12px; margin:16px 0;
+    }
+    .fullbtn.ghost{ background:var(--surface); color:var(--accent); border:2px solid var(--accent); }
+
+    /* ---- accessibility: keyboard focus + reduced motion ---- */
+    a:focus-visible{ outline:3px solid #111; outline-offset:2px; }
+    @media (prefers-reduced-motion:reduce){ *{ transition:none !important; } }
+  </style>
+</head>
 <body>
- <ul>
-  <li>Blood pooling or spurting</li>
-  <li>Soaked clothing or dressings</li>
-  <li>Signs of shock</li>
-</ul>
 
+  <!-- Brand bar -->
+  <div class="topbar">
+    <div class="topbar-inner">
+      <img src="Images/turret.png" alt="" class="brand-logo">
+      <span class="brand">TURRET TRAINING<em>&middot; HOME</em></span>
+      <img src="Images/turret.png" alt="" class="brand-logo">
+    </div>
+  </div>
+
+  <div class="wrap">
+
+    <!-- Title -->
+    <div class="hero">
+      <h1>TURRET TRAINING</h1>
+      <p>SIMPLE THINGS, DONE WELL, SAVE LIVES</p>
+    </div>
+
+    <!-- The whole sequence at a glance (also tappable) -->
+    <nav class="spine">
+      <a style="--c:#d92d20" href="/Pages/catastrophic_bleeding.html">C</a>
+      <a style="--c:#b45309" href="/Pages/airway.html">A</a>
+      <a style="--c:#175cd3" href="/Pages/breathing.html">B</a>
+      <a style="--c:#9f1239" href="/Pages/circulation.html">C</a>
+      <a style="--c:#6941c6" href="/Pages/disability.html">D</a>
+      <a style="--c:#067647" href="/Pages/exposure.html">E</a>
+    </nav>
+
+    <!-- One card per step -->
+    <a class="card" style="--accent:#d92d20" href="/Pages/catastrophic_bleeding.html">
+      <span class="badge">C</span>
+      <span class="card-body">
+        <span class="card-title">Catastrophic Bleeding</span>
+        <span class="card-sum">Stop massive bleeding, stabilise the head &amp; neck, check consciousness.</span>
+      </span>
+      <span class="chev">&rsaquo;</span>
+    </a>
+    <a class="card" style="--accent:#b45309" href="/Pages/airway.html">
+      <span class="badge">A</span>
+      <span class="card-body">
+        <span class="card-title">Airway</span>
+        <span class="card-sum">Is the airway noisy or silent? Clear it and create one.</span>
+      </span>
+      <span class="chev">&rsaquo;</span>
+    </a>
+    <a class="card" style="--accent:#175cd3" href="/Pages/breathing.html">
+      <span class="badge">B</span>
+      <span class="card-body">
+        <span class="card-title">Breathing</span>
+        <span class="card-sum">Expose the chest, assess rate &amp; volume, treat wounds.</span>
+      </span>
+      <span class="chev">&rsaquo;</span>
+    </a>
+    <a class="card" style="--accent:#9f1239" href="/Pages/circulation.html">
+      <span class="badge">C</span>
+      <span class="card-body">
+        <span class="card-title">Circulation</span>
+        <span class="card-sum">Locate the blood, control it, check the pulse.</span>
+      </span>
+      <span class="chev">&rsaquo;</span>
+    </a>
+    <a class="card" style="--accent:#6941c6" href="/Pages/disability.html">
+      <span class="badge">D</span>
+      <span class="card-body">
+        <span class="card-title">Disability</span>
+        <span class="card-sum">Reassess every 5 min: movement, AVPU, pupils, pain.</span>
+      </span>
+      <span class="chev">&rsaquo;</span>
+    </a>
+    <a class="card" style="--accent:#067647" href="/Pages/exposure.html">
+      <span class="badge">E</span>
+      <span class="card-body">
+        <span class="card-title">Exposure / Evacuation</span>
+        <span class="card-sum">Keep warm, pack, wrap, evacuate. Avoid hypothermia.</span>
+      </span>
+      <span class="chev">&rsaquo;</span>
+    </a>
+
+    <!-- Scene & safety: before you start -->
+    <section class="panel">
+      <h2>Scene &amp; safety</h2>
+      <p class="sub">Order of first aid: C-ABCDE</p>
+      <h3>Upon arrival</h3>
+      <ul>
+        <li>Note the time of arrival</li>
+        <li>Tell control</li>
+        <li>Call for help or backup early</li>
+      </ul>
+      <h3>Safety 1-2-3</h3>
+      <ul>
+        <li>You — gloves / glasses on immediately</li>
+        <li>Environment — crowd or other vehicles?</li>
+        <li>Patient — are they aggressive?</li>
+      </ul>
+      <h3>Read the scene</h3>
+      <ul>
+        <li>Consider the Mechanism of Injury (MOI)</li>
+        <li>&asymp; 90% of the diagnosis</li>
+      </ul>
+    </section>
+
+  </div>
 </body>
-<!-- Closes the BODY. -->
-
 </html>
-<!-- Closes the whole document. -->

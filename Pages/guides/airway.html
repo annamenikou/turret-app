@@ -74,27 +74,47 @@
     .card-sum{ display:block; color:var(--muted); font-size:15px; margin-top:2px; }
     .chev{ color:var(--muted); font-size:26px; font-weight:700; }
 
-    /* ---- scene & safety panel (landing only) ---- */
-    .panel{
-      background:var(--surface); border:1px solid var(--line);
-      border-radius:var(--radius); padding:16px 18px; margin-top:24px;
+    /* ---- scene & safety banner: static reminder, not a link (same on every page) ---- */
+    .scene-banner{
+      background:#eef1f4; border:1px solid var(--line);
+      border-radius:var(--radius); padding:12px 14px; margin:14px 0;
     }
-    .panel h2{ margin:0; font-size:19px; }
-    .panel .sub{ color:var(--muted); font-size:14px; margin:2px 0 10px; }
-    .panel h3{
-      margin:16px 0 4px; font-size:13px; letter-spacing:.6px;
-      text-transform:uppercase; color:var(--muted);
+    .scene-banner summary{
+      display:flex; align-items:center; justify-content:center;
+      position:relative; list-style:none; cursor:pointer;
     }
-    .panel ul{ margin:0; padding-left:20px; }
-    .panel li{ margin:4px 0; }
+    .scene-banner summary::-webkit-details-marker{ display:none; }
+    .scene-banner .banner-title{
+      font-size:14px; font-weight:700;
+      letter-spacing:.4px; text-transform:uppercase; color:var(--muted);
+    }
+    .scene-banner .banner-toggle{
+      position:absolute; right:0; top:50%; transform:translateY(-50%);
+      width:18px; height:18px; border:2px solid var(--muted); border-radius:4px;
+      display:flex; align-items:center; justify-content:center;
+      font-size:12px; font-weight:700; line-height:1; color:var(--muted);
+    }
+    .scene-banner:not([open]) .banner-toggle::before{ content:"\2713"; }
+    .scene-cols{
+      display:flex; gap:8px; margin-top:8px; padding-top:8px;
+      border-top:1px solid var(--line);
+    }
+    .scene-col{ flex:1; min-width:0; }
+    .scene-col h3{
+      margin:0 0 3px; font-size:12px; letter-spacing:.5px;
+      text-transform:uppercase; color:var(--muted); font-weight:700;
+    }
+    .scene-col ul{ margin:0; padding-left:14px; }
+    .scene-col li{ margin:1px 0; font-size:12px; line-height:1.35; }
 
     /* ---- letter-page coloured header ---- */
     .phead{ background:var(--accent); color:#fff; padding:18px 16px 22px; }
     .phead .back{
-      display:inline-block; font-size:14px; font-weight:600;
-      opacity:.9; margin-bottom:14px; letter-spacing:.5px;
+      position:absolute; left:0; top:50%; transform:translateY(-50%);
+      font-size:14px; font-weight:600; opacity:.9; letter-spacing:.5px;
     }
-    .phead-main{ display:flex; align-items:center; gap:14px; }
+    .phead-main{ position:relative; display:flex; align-items:center; justify-content:center; gap:12px; }
+    .phead-title{ text-align:center; }
     .phead-badge{
       flex:none; width:60px; height:60px; border-radius:14px;
       background:rgba(255,255,255,.18);
@@ -136,10 +156,10 @@
 
   <!-- Coloured header: which step you're on -->
   <header class="phead">
-    <a class="back" href="emergency.html">&lsaquo; Full C-ABCDE guide</a>
     <div class="phead-main">
+        <a class="back" href="/Pages/emergency.html">&lsaquo; Full C-ABCDE guide</a>
       <span class="phead-badge">A</span>
-      <div>
+      <div class="phead-title">
         <h1>Airway</h1>
         <p class="lead">Is the airway noisy or silent?</p>
       </div>
@@ -148,18 +168,48 @@
 
   <div class="wrap">
 
+    <!-- Scene & safety reminder: same on every page, not clickable -->
+    <details class="scene-banner" open>
+      <summary>
+        <span class="banner-title">Scene &amp; Safety Management: Before you start</span>
+        <span class="banner-toggle" aria-hidden="true"></span>
+      </summary>
+      <span class="scene-cols">
+        <span class="scene-col">
+          <h3>Upon arrival</h3>
+          <ul>
+            <li>Note the time of arrival</li>
+            <li>Tell control</li>
+            <li>Call for help or backup early</li>
+          </ul>
+        </span>
+        <span class="scene-col">
+          <h3>Safety 1-2-3</h3>
+          <ul>
+            <li>You</li>
+            <li>Environment</li>
+            <li>Patient</li>
+          </ul>
+        </span>
+        <span class="scene-col">
+          <h3>Read the scene</h3>
+          <ul>
+            <li>Consider the MOI</li>
+            <li>&asymp;90% of the diagnosis</li>
+          </ul>
+        </span>
+      </span>
+    </details>
+
     <!-- Spine: current step highlighted; tap any letter to jump -->
     <nav class="spine">
-      <a style="--c:#d92d20" href="guide-catastrophic.html">C</a>
-      <a class="active" style="--c:#b45309" href="guide-airway.html">A</a>
-      <a style="--c:#175cd3" href="guide-breathing.html">B</a>
-      <a style="--c:#9f1239" href="guide-circulation.html">C</a>
-      <a style="--c:#6941c6" href="guide-disability.html">D</a>
-      <a style="--c:#067647" href="guide-exposure.html">E</a>
+      <a style="--c:#d92d20" href="/Pages/guides/catastrophic_bleeding.html">C</a>
+      <a class="active" style="--c:#b45309" href="/Pages/guides/airway.html">A</a>
+      <a style="--c:#175cd3" href="/Pages/guides/breathing.html">B</a>
+      <a style="--c:#9f1239" href="/Pages/guides/circulation.html">C</a>
+      <a style="--c:#6941c6" href="/Pages/guides/disability.html">D</a>
+      <a style="--c:#067647" href="/Pages/guides/exposure.html">E</a>
     </nav>
-
-    <!-- Button back to the whole overview -->
-    <a class="fullbtn" href="emergency.html">View the full C-ABCDE guide</a>
 
     <!-- The detail for this step -->
     <section class="block">
@@ -196,7 +246,7 @@
       </ul>
     </section>
 
-    <a class="fullbtn ghost" href="emergency.html">&lsaquo; Back to full guide</a>
+    <a class="fullbtn ghost" href="/Pages/emergency.html">&lsaquo; Back to full guide</a>
 
   </div>
 </body>
