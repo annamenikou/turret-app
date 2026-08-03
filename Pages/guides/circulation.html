@@ -85,8 +85,9 @@
     }
     .scene-banner summary::-webkit-details-marker{ display:none; }
     .scene-banner .banner-title{
-      font-size:14px; font-weight:700;
-      letter-spacing:.4px; text-transform:uppercase; color:var(--muted);
+      font-weight:700; white-space:nowrap;
+      letter-spacing:clamp(.1px, .3vw, .4px); text-transform:uppercase; color:var(--muted);
+      font-size:clamp(10.5px, 3.1vw, 14px);
     }
     .scene-banner .banner-toggle{
       position:absolute; right:0; top:50%; transform:translateY(-50%);
@@ -110,19 +111,24 @@
     /* ---- letter-page coloured header ---- */
     .phead{ background:var(--accent); color:#fff; padding:18px 16px 22px; }
     .phead .back{
-      position:absolute; left:0; top:50%; transform:translateY(-50%);
-      font-size:14px; font-weight:600; opacity:.9; letter-spacing:.5px;
+      flex:none; font-size:14px; font-weight:600;
+      opacity:.9; letter-spacing:.5px; white-space:nowrap;
     }
-    .phead-main{ position:relative; display:flex; align-items:center; justify-content:center; gap:12px; }
-    .phead-title{ text-align:center; }
+    .phead .back .back-short{ display:none; }
+    .phead-main{ display:flex; align-items:center; gap:10px; }
+    .phead-title{ flex:1; min-width:0; overflow:hidden; text-align:left; }
     .phead-badge{
       flex:none; width:60px; height:60px; border-radius:14px;
       background:rgba(255,255,255,.18);
       display:flex; align-items:center; justify-content:center;
       font-size:34px; font-weight:700;
     }
-    .phead h1{ margin:0; font-size:26px; font-weight:700; letter-spacing:1px; }
+    .phead h1{ margin:0; font-weight:700; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; letter-spacing:clamp(.1px, .15vw, 1px); font-size:clamp(14px, 4.6vw, 26px); }
     .phead .lead{ margin:5px 0 0; font-size:15px; opacity:.92; }
+    @media (max-width:420px){
+      .phead .back .back-full{ display:none; }
+      .phead .back .back-short{ display:inline; }
+    }
 
     /* ---- content blocks (letter pages) ---- */
     .block{
@@ -157,7 +163,7 @@
   <!-- Coloured header: which step you're on -->
   <header class="phead">
     <div class="phead-main">
-      <a class="back" href="/Pages/emergency.html">&lsaquo; Full C-ABCDE guide</a>
+      <a class="back" href="/Pages/emergency.html"><span class="back-full">&lsaquo; Full C-ABCDE guide</span><span class="back-short">&lsaquo; Guide</span></a>
       <span class="phead-badge">C</span>
       <div class="phead-title">
         <h1>Circulation</h1>
