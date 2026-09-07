@@ -34,12 +34,23 @@
     a{ color:inherit; text-decoration:none; }            /* links inherit colour, no underline */
     .wrap{ max-width:640px; margin:0 auto; padding:0 16px 48px; }  /* centre + phone padding */
 
-    /* ---- landing top bar ---- */
+    /* ---- brand bar: same as the index ---- */
     .topbar{
       background:var(--ink); color:#fff;
-      padding:14px 16px; display:flex; align-items:center;
+      padding:11px 0;
     }
-    .topbar .brand{ font-weight:700; letter-spacing:3px; font-size:15px; }
+    .topbar-inner{
+      max-width:640px; margin:0 auto; padding:0 16px;
+      display:flex; align-items:center; justify-content:space-between;
+      gap:10px; text-align:center;
+    }
+    .topbar .brand-logo{ height:34px; width:auto; flex:none; }
+    .topbar .brand{
+      flex:1; min-width:0; font-weight:700;
+      white-space:nowrap;
+      letter-spacing:clamp(1px, 0.6vw, 3px);
+      font-size:clamp(11px, 3.4vw, 15px);
+    }
     .topbar .brand em{ font-style:normal; opacity:.55; }
 
     /* ---- landing hero ---- */
@@ -74,65 +85,28 @@
     .card-sum{ display:block; color:var(--muted); font-size:15px; margin-top:2px; }
     .chev{ color:var(--muted); font-size:26px; font-weight:700; }
 
-    /* ---- scene & safety banner: static reminder, not a link (same on every page) ---- */
-    .scene-banner{
-      background:#eef1f4; border:1px solid var(--line);
-      border-radius:var(--radius); padding:12px 14px; margin:14px 0;
+    /* ---- back link: in the step's colour ---- */
+    .backlink{
+      display:inline-block; margin:18px 0 2px;
+      font-size:14px; font-weight:700;
+      letter-spacing:.5px; color:var(--accent);
     }
-    .scene-banner summary{
-      display:flex; align-items:center; gap:8px;
-      list-style:none; cursor:pointer;
-    }
-    .scene-banner summary::-webkit-details-marker{ display:none; }
-    .scene-banner .banner-title{
-      flex:1; min-width:0; text-align:center; overflow:hidden; text-overflow:ellipsis;
-      font-weight:700; white-space:nowrap;
-      letter-spacing:clamp(.1px, .3vw, .4px); text-transform:uppercase; color:var(--muted);
-      font-size:clamp(10.5px, 3.1vw, 14px);
-    }
-    .scene-banner .banner-toggle{
-      flex:none;
-      width:18px; height:18px; border:2px solid var(--muted); border-radius:4px;
-      display:flex; align-items:center; justify-content:center;
-      font-size:12px; font-weight:700; line-height:1; color:var(--muted);
-    }
-    .scene-banner:not([open]) .banner-toggle::before{ content:"\2713"; }
-    .scene-cols{
-      display:flex; gap:8px; margin-top:8px; padding-top:8px;
-      border-top:1px solid var(--line);
-    }
-    .scene-col{ flex:1; min-width:0; }
-    .scene-col h3{
-      margin:0 0 3px; font-size:12px; letter-spacing:.5px;
-      text-transform:uppercase; color:var(--muted); font-weight:700;
-    }
-    .scene-col ul{ margin:0; padding-left:14px; }
-    .scene-col li{ margin:1px 0; font-size:12px; line-height:1.35; }
 
-    /* ---- letter-page coloured header ---- */
-    .phead{ background:var(--accent); color:#fff; padding:18px 16px 22px; }
-    .phead .back{
-      flex:none; font-weight:600; opacity:.9; letter-spacing:.5px;
+    /* ---- step title block: in the step's colour ---- */
+    .ptitle{
+      display:flex; align-items:center; gap:14px;
+      background:var(--accent); color:#fff;
+      border-radius:var(--radius); padding:18px; margin:6px 0 4px;
     }
-    .phead .back .back-full{ font-size:14px; white-space:nowrap; }
-    .phead .back .back-short{
-      display:none; font-size:11px; line-height:1.2;
-      text-align:center; white-space:normal;
-    }
-    .phead-main{ display:flex; align-items:center; gap:10px; }
-    .phead-title{ flex:1; min-width:0; overflow:hidden; text-align:left; }
-    .phead-badge{
-      flex:none; width:60px; height:60px; border-radius:14px;
+    .ptitle-badge{
+      flex:none; width:56px; height:56px; border-radius:14px;
       background:rgba(255,255,255,.18);
       display:flex; align-items:center; justify-content:center;
-      font-size:34px; font-weight:700;
+      font-size:32px; font-weight:700;
     }
-    .phead h1{ margin:0; font-weight:700; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; letter-spacing:clamp(.1px, .15vw, 1px); font-size:clamp(14px, 4.6vw, 26px); }
-    .phead .lead{ margin:5px 0 0; font-size:15px; opacity:.92; }
-    @media (max-width:420px){
-      .phead .back .back-full{ display:none; }
-      .phead .back .back-short{ display:block; }
-    }
+    .ptitle-text{ flex:1; min-width:0; }
+    .ptitle h1{ margin:0; font-size:24px; font-weight:700; letter-spacing:.5px; }
+    .ptitle .lead{ margin:5px 0 0; font-size:15px; opacity:.92; }
 
     /* ---- content blocks (letter pages) ---- */
     .block{
@@ -164,52 +138,28 @@
 </head>
 <body style="--accent:#175cd3">
 
-  <!-- Coloured header: which step you're on -->
-  <header class="phead">
-    <div class="phead-main">
-      <a class="back" href="/Pages/emergency.html"><span class="back-full">&lsaquo; Full C-ABCDE guide</span><span class="back-short">&lsaquo; Full<br>Guide</span></a>
-      <span class="phead-badge">B</span>
-      <div class="phead-title">
-        <h1>Breathing</h1>
-        <p class="lead">Expose the chest to the waistline, if possible.</p>
-      </div>
+  <!-- Brand bar: same as the index -->
+  <div class="topbar">
+    <div class="topbar-inner">
+      <a href="/index.html" aria-label="Home"><img src="/Images/turret_home.png" alt="" class="brand-logo"></a>
+      <span class="brand">TURRET <em>&middot; EMERGENCY GUIDES</em></span>
+      <a href="https://www.turretmedtraining.com/contact" target="_blank" rel="noopener" aria-label="Contact"><img src="/Images/phone.png" alt="" class="brand-logo"></a>
     </div>
-  </header>
+  </div>
 
   <div class="wrap">
 
-    <!-- Scene & safety reminder: same on every page, not clickable -->
-    <details class="scene-banner" open>
-      <summary>
-        <span class="banner-title">Before You Begin: Scene &amp; Safety</span>
-        <span class="banner-toggle" aria-hidden="true"></span>
-      </summary>
-      <span class="scene-cols">
-        <span class="scene-col">
-          <h3>Upon arrival</h3>
-          <ul>
-            <li>Note the time of arrival</li>
-            <li>Tell control</li>
-            <li>Call for help or backup early</li>
-          </ul>
-        </span>
-        <span class="scene-col">
-          <h3>Safety 1-2-3</h3>
-          <ul>
-            <li>You</li>
-            <li>Environment</li>
-            <li>Patient</li>
-          </ul>
-        </span>
-        <span class="scene-col">
-          <h3>Read the scene</h3>
-          <ul>
-            <li>Consider the MOI</li>
-            <li>&asymp;90% of the diagnosis</li>
-          </ul>
-        </span>
-      </span>
-    </details>
+    <!-- Back to the full sequence -->
+    <a class="backlink" href="/Pages/emergency.html">&lsaquo; Full C-ABCDE guide</a>
+
+    <!-- Step title &amp; subtitle, in this step's colour -->
+    <header class="ptitle">
+      <span class="ptitle-badge">B</span>
+      <div class="ptitle-text">
+        <h1>BREATHING</h1>
+        <p class="lead"><b>Main focus</b> = Enable normal breathing.</p>
+      </div>
+    </header>
 
     <!-- Spine: current step highlighted; tap any letter to jump -->
     <nav class="spine">
