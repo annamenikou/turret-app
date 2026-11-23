@@ -115,5 +115,10 @@
  
 
   </div>
+<script>
+  if ('serviceWorker' in navigator) {             // only on browsers that support service workers
+    navigator.serviceWorker.register('/sw.js');   // install our service worker from the root of the site
+  }
+</script>
 </body>
 </html>
