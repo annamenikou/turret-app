@@ -1,0 +1,29 @@
+/* Jura, hosted locally so the app works offline. One rule per weight used. */
+
+@font-face {                                          /* defines a font the pages can use */
+  font-family: 'Jura';                                /* the name your CSS already asks for */
+  src: url('/fonts/jura-400.woff2') format('woff2'); /* where the file is, and its format */
+  font-weight: 400;                                   /* this file is the regular weight */
+  font-display: swap;                                 /* show text straight away in a fallback font, then swap to Jura */
+}
+
+@font-face {
+  font-family: 'Jura';
+  src: url('/fonts/jura-500.woff2') format('woff2');
+  font-weight: 500;                                   /* medium */
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Jura';
+  src: url('/fonts/jura-600.woff2') format('woff2');
+  font-weight: 600;                                   /* semi-bold */
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Jura';
+  src: url('/fonts/jura-700.woff2') format('woff2');
+  font-weight: 700;                                   /* bold */
+  font-display: swap;
+}
