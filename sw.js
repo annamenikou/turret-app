@@ -1,4 +1,4 @@
-const CACHE_NAME = 'turret-v1';                 // name of the saved copy; change to v2, v3... on every release so phones fetch new files
+const CACHE_NAME = 'turret-v2';                 // name of the saved copy; change to v2, v3... on every release so phones fetch new files
 
 const FILES_TO_CACHE = [                        // every file the app needs to work offline
   '/',                                          // the home page as the bare web address
