@@ -12,6 +12,7 @@ const FILES_TO_CACHE = [                        // every file the app needs to w
   '/Pages/emergency.html',                      // emergency guide menu
   '/Pages/aboutus.html',
   '/Pages/d13resources.html',
+  '/Pages/contact.html',
   '/Pages/guides/catastrophic_bleeding.html',   // the six C-ABCDE guides
   '/Pages/guides/airway.html',
   '/Pages/guides/breathing.html',
