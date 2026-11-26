@@ -136,6 +136,16 @@
     /* ---- accessibility: keyboard focus + reduced motion ---- */
     a:focus-visible{ outline:3px solid #111; outline-offset:2px; }
     @media (prefers-reduced-motion:reduce){ *{ transition:none !important; } }
+
+    /* ---- safety + version footer ---- */
+    .pfoot{
+      margin-top:24px; padding-top:14px;                 /* space above, then a gap under the divider line */
+      border-top:1px solid var(--line);                  /* thin divider, same grey as other borders */
+      text-align:center;                                 /* centred under the content */
+      color:var(--muted); font-size:14px; line-height:1.5; /* quieter grey text, smaller than the protocol text */
+    }
+    .pfoot p{ margin:0 0 6px; }                          /* small gap between the two lines */
+    .pfoot strong{ color:var(--navy); }                  /* key phrases in the darker text colour */
   </style>
 </head>
 <body style="--accent:#175cd3">
@@ -220,6 +230,12 @@
 
 
     <a class="fullbtn ghost" href="/Pages/emergency.html">&lsaquo; Back to full guide</a>
+
+    <!-- Safety reminder and version, on every guide page -->
+    <footer class="pfoot">
+      <p><strong>For trained responders only.</strong> Not a substitute for training or professional judgement. <strong>In an emergency, call 999.</strong></p>  <!-- key safety message -->
+      <p>Version 0.1 &middot; Clinical review: pending</p>  <!-- update on each release; becomes e.g. "Version 1.0 · Content reviewed March 2027" -->
+    </footer>
 
   </div>
 <script>
