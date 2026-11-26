@@ -120,6 +120,29 @@
     /* ---- accessibility: keyboard focus + reduced motion ---- */
     a:focus-visible{ outline:3px solid #111; outline-offset:2px; }
     @media (prefers-reduced-motion:reduce){ *{ transition:none !important; } }
+
+    /* ---- first-launch safety notice ---- */
+    .notice{
+      position:fixed; inset:0;                           /* cover the whole screen */
+      background:rgba(20,38,61,.88);                     /* dark navy see-through backdrop */
+      display:none;                                      /* hidden until the script shows it */
+      align-items:center; justify-content:center;        /* centre the box */
+      padding:16px; z-index:10;                          /* gap from screen edges; sit above everything */
+    }
+    .notice.show{ display:flex; }                        /* the script adds "show" to make it appear */
+    .notice-box{
+      background:var(--surface); border-radius:var(--radius);  /* white card, same rounding as the rest */
+      padding:22px; max-width:440px;                     /* comfortable padding; not too wide */
+    }
+    .notice-box h2{ margin:0 0 10px; font-size:21px; }   /* heading size and spacing */
+    .notice-box p{ margin:0 0 12px; font-size:16px; }    /* paragraph spacing */
+    .notice-btn{
+      display:block; width:100%; margin-top:6px;         /* full-width button */
+      background:var(--navy); color:#fff;                /* navy button, white text */
+      font:inherit; font-size:17px; font-weight:700;     /* use Jura, bold */
+      border:0; border-radius:12px; padding:15px;        /* no border; big touch target */
+      cursor:pointer;                                    /* hand cursor on desktop */
+    }
   </style>
 </head>
 <body>
@@ -163,7 +186,32 @@
     </nav>
 
   </div>
+
+  <!-- First-launch safety notice (shown once per phone) -->
+  <div class="notice" id="notice" role="dialog" aria-modal="true" aria-labelledby="notice-title">  <!-- screen readers announce it as a dialog -->
+    <div class="notice-box">
+      <h2 id="notice-title">Before you use this app</h2>                                              <!-- heading read out first -->
+      <p>This app is a memory aid for people trained by Turret Training Ltd, or with equivalent trauma training. It does not replace your training or the judgement of a healthcare professional.</p>
+      <p><strong>In an emergency, call 999 first.</strong> Only carry out interventions you are trained and competent to perform.</p>
+      <button class="notice-btn" id="notice-ok">I understand</button>                                <!-- the only way to close it -->
+    </div>
+  </div>
+
 <script>
+  const notice = document.getElementById('notice');                // the notice box
+  const okButton = document.getElementById('notice-ok');           // its button
+  let seen = false;                                                // assume not seen yet
+  try { seen = localStorage.getItem('turretNotice') === 'v1'; }    // has this phone already accepted version 1?
+  catch (e) {}                                                     // some private modes block storage; then just show it
+  if (!seen) {                                                     // not accepted yet...
+    notice.classList.add('show');                                  // ...show the notice
+    okButton.focus();                                              // put keyboard/screen-reader focus on the button
+  }
+  okButton.addEventListener('click', () => {                       // when "I understand" is tapped
+    try { localStorage.setItem('turretNotice', 'v1'); } catch (e) {} // remember it on this phone
+    notice.classList.remove('show');                               // hide the notice
+  });
+
   if ('serviceWorker' in navigator) {             // only on browsers that support service workers
     navigator.serviceWorker.register('/sw.js');   // install our service worker from the root of the site
   }
