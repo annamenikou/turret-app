@@ -1,6 +1,6 @@
-const CACHE_NAME = 'turret-v3';                 // name of the saved copy; change to v2, v3... on every release so phones fetch new files
+const CACHE_NAME = 'turret-cache';              // name of the saved copy; it never needs to change
 
-const FILES_TO_CACHE = [                        // every file the app needs to work offline
+const FILES_TO_CACHE = [                        // every file the app needs to work offline; update this when you add, rename or delete a file
   '/',                                          // the home page as the bare web address
   '/index.html',                                // the home page by its file name
   '/manifest.json',                             // app name, icons and colours
@@ -31,9 +31,9 @@ const FILES_TO_CACHE = [                        // every file the app needs to w
   '/full_emergency_guide.pdf'                   // the full guide PDF
 ];
 
-self.addEventListener('install', event => {     // runs once, when the phone first gets this service worker
+self.addEventListener('install', event => {     // runs when the phone gets a new or changed sw.js
   event.waitUntil(                              // don't finish installing until the saving below is done
-    caches.open(CACHE_NAME)                     // open (or create) storage with our cache name
+    caches.open(CACHE_NAME)                     // open (or create) our saved copy
       .then(cache => cache.addAll(              // download every file in the list and save it
         FILES_TO_CACHE.map(url => new Request(url, { cache: 'reload' })) // skip the browser's normal cache so we always save fresh copies
       ))
@@ -46,8 +46,8 @@ self.addEventListener('activate', event => {    // runs when this version become
     caches.keys().then(names =>                 // get the names of every saved copy on the phone
       Promise.all(                              // wait for all the deletions below
         names
-          .filter(name => name !== CACHE_NAME)  // keep only the ones that aren't the current version
-          .map(name => caches.delete(name))     // delete those old versions
+          .filter(name => name !== CACHE_NAME)  // anything not called turret-cache (e.g. the old turret-v3)
+          .map(name => caches.delete(name))     // delete it
       )
     )
   );
@@ -55,9 +55,23 @@ self.addEventListener('activate', event => {    // runs when this version become
 });
 
 self.addEventListener('fetch', event => {       // runs every time a page asks for a file
-  if (event.request.method !== 'GET') return;   // only handle normal file requests; leave anything else alone
-  event.respondWith(                            // we decide what the page gets back
-    caches.match(event.request)                 // look for this file in the saved copy
-      .then(saved => saved || fetch(event.request)) // if saved, hand it over; if not, try the internet
+  if (event.request.method !== 'GET') return;   // only handle normal file requests
+  if (!event.request.url.startsWith(self.location.origin)) return; // ignore files from other websites
+
+  const fresh = fetch(event.request)            // try to get the latest version from the internet
+    .then(response => {                         // when it arrives...
+      if (response.ok && !response.redirected) { // ...and it's a proper, non-redirected file
+        const copy = response.clone();          // make a copy (a response can only be read once)
+        caches.open(CACHE_NAME)                 // open our saved copy
+          .then(cache => cache.put(event.request, copy)); // replace the old file with the new one
+      }
+      return response;                          // pass the fresh file on
+    });
+
+  event.waitUntil(fresh.catch(() => {}));       // let the background update finish; ignore failures (no signal)
+
+  event.respondWith(                            // decide what the page gets right now
+    caches.match(event.request)                 // look for a saved copy
+      .then(saved => saved || fresh)            // saved copy if there is one, otherwise wait for the internet
   );
 });
