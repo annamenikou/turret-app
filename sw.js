@@ -1,4 +1,4 @@
-const CACHE_NAME = 'turret-v2';                 // name of the saved copy; change to v2, v3... on every release so phones fetch new files
+const CACHE_NAME = 'turret-v3';                 // name of the saved copy; change to v2, v3... on every release so phones fetch new files
 
 const FILES_TO_CACHE = [                        // every file the app needs to work offline
   '/',                                          // the home page as the bare web address
@@ -34,7 +34,9 @@ const FILES_TO_CACHE = [                        // every file the app needs to w
 self.addEventListener('install', event => {     // runs once, when the phone first gets this service worker
   event.waitUntil(                              // don't finish installing until the saving below is done
     caches.open(CACHE_NAME)                     // open (or create) storage with our cache name
-      .then(cache => cache.addAll(FILES_TO_CACHE)) // download every file in the list and save it
+      .then(cache => cache.addAll(              // download every file in the list and save it
+        FILES_TO_CACHE.map(url => new Request(url, { cache: 'reload' })) // skip the browser's normal cache so we always save fresh copies
+      ))
   );
   self.skipWaiting();                           // take over straight away instead of waiting for old tabs to close
 });
